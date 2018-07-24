@@ -1,6 +1,4 @@
-
 const api = "http://localhost:3001"
-
 
 const headers = {
   'Authorization': true
