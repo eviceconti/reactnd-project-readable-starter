@@ -1,64 +1,24 @@
 import React, { Component } from 'react'
 import '../App.css'
-import * as ReadableAPI from '../ReadableAPI'
-import { connect } from 'react-redux'
-import { getPosts } from '../Actions'
 import Categories from './Categories';
+import Posts from './Posts';
 
 class App extends Component {
-  state = {
-    categories: '',
-    posts: ''
-  }
-
-  getPosts() {
-    ReadableAPI.getPosts()
-      .then(response => {
-        this.props.getPosts(response)
-        console.log('getPosts',this.props.posts)
-      }) 
-  }
+  state = {}
 
   render() {
-    let render = false
-    if (this.props.posts.length !== 0) {
-      render = true
-    }
-
+    
     return (
       <div className="main">
-        <div className="posts">
-          <ul className="posts-list">
-            {render && this.props.posts.map(post => (
-              <li 
-                className="item"
-                key={post.id}
-              >{post.title}</li>
-            ))}
-          </ul>
-        </div>
+        <Posts />
         <Categories />
       </div>
     )
   }
-
-  componentDidMount() {
-    this.getPosts()
-  }
-
 }
 
-function mapStateToProps(state) {
-  return { posts: state.getPosts }
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getPosts: (posts) => dispatch(getPosts(posts))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
 
 /*
   //Data Structure
