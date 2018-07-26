@@ -23,6 +23,9 @@ class Categories extends Component {
     
     return (
       <div className="categories">
+        <h2 className="categories-title">
+          Categories
+        </h2>
         {render && this.props.categories.map(category => (
           <div 
             className="category"
