@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../App.css';
 import * as ReadableAPI from '../ReadableAPI';
-
+import { connect } from 'react-redux';
+import { getPosts } from '../Actions';
 
 class App extends Component {
   state = {
@@ -10,22 +10,51 @@ class App extends Component {
     posts: ''
   }
 
+  getPosts() {
+    ReadableAPI.getPosts()
+      .then(response => {
+        this.props.getPosts(response);
+        console.log('getPosts',this.props.posts);
+      }); 
+  }
+
   render() {
+    let render = false;
+    if (this.props.posts.length !== 0) {
+      render = true;
+    }
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="posts">
+        <ul className="posts-list">
+          {render && this.props.posts.map(post => (
+            <li 
+              className="item"
+              key={post.id}
+            >{post.title}</li>
+          ))}
+        </ul>
       </div>
-    );
+    )
+  }
+
+  componentDidMount() {
+    this.getPosts();
   }
 
 }
-export default App;
+
+function mapStateToProps(state) {
+  return { posts: state }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getPosts: (posts) => dispatch(getPosts(posts))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 /*
   //Data Structure

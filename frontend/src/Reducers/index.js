@@ -1,7 +1,7 @@
 //Reducer
 import { GET_POSTS } from '../Actions';
 
-const initialPosts = {}
+const initialPosts = [];
 
 function getPosts(state = initialPosts, action) {
   switch (action.type) {
