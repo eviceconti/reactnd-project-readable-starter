@@ -1,15 +1,26 @@
 //Reducer
-import { GET_POSTS } from '../Actions';
+import { GET_POSTS, GET_CATEGORIES } from '../Actions'
+import { combineReducers } from 'redux'
 
-const initialPosts = [];
-
-function getPosts(state = initialPosts, action) {
+function getPosts(state = [], action) {
   switch (action.type) {
     case GET_POSTS:
-      return action.state;
+      return action.state
     default:
-      return state;
+      return state
   }
 }
 
-export default getPosts
+function getCategories(state = [], action) {
+  switch (action.type) {
+    case GET_CATEGORIES:
+      return action.state
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  getPosts,
+  getCategories
+})
