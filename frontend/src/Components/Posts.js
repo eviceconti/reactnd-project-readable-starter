@@ -3,6 +3,7 @@ import '../App.css'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
 import { getPosts } from '../Actions'
+import Votes from './Votes'
 
 class Posts extends Component {
   state = {}
@@ -23,17 +24,30 @@ class Posts extends Component {
     
     return (
       <section className="main">
-        <h2 className="main-title">
+        <h2 className="main-title mb-small">
           Posts
         </h2>
-        <ul className="posts">
-          {render && this.props.posts.map(post => (
-            <li 
-              className="post"
-              key={post.id}
-            >{post.title}</li>
-          ))}
-        </ul>
+        <div className="posts">
+          <ul className="posts-list">
+            {render && this.props.posts.map(post => (
+              <li 
+                className="post"
+                key={post.id}
+              >
+                <Votes votes={post.voteScore}></Votes>
+                <div className="post-main">
+                  <h3 className="post-title mb-small">{post.title}</h3> 
+                  <p className="post-body">
+                    {post.body}
+                  </p>
+                  <p className="post-comments">
+                    {post.commentCount} comment(s)
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     )
   }
