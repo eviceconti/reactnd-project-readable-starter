@@ -11,7 +11,6 @@ class Categories extends Component {
     ReadableAPI.getCategories()
       .then(response => {
         this.props.getCategories(response)
-        console.log('getCategories',this.props.categories)
       }) 
   }
 
@@ -42,7 +41,7 @@ class Categories extends Component {
 }
 
 function mapStateToProps(state) {
-  return { categories: state.getCategories }
+  return { categories: state.categories }
 }
 
 function mapDispatchToProps(dispatch) {

@@ -12,7 +12,6 @@ class Posts extends Component {
     ReadableAPI.getPosts()
       .then(response => {
         this.props.getPosts(response)
-        console.log('getPosts',this.props.posts)
       }) 
   }
 
@@ -34,7 +33,10 @@ class Posts extends Component {
                 className="post"
                 key={post.id}
               >
-                <Votes votes={post.voteScore}></Votes>
+                <Votes 
+                  votes={post.voteScore}
+                  postId={post.id}
+                ></Votes>
                 <div className="post-main">
                   <h3 className="post-title mb-small">{post.title}</h3> 
                   <p className="post-body">
@@ -58,7 +60,7 @@ class Posts extends Component {
 }
 
 function mapStateToProps(state) {
-  return { posts: state.getPosts }
+  return { posts: state.posts }
 }
 
 function mapDispatchToProps(dispatch) {

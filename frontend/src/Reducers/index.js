@@ -1,17 +1,27 @@
 //Reducer
-import { GET_POSTS, GET_CATEGORIES } from '../Actions'
+import { GET_POSTS, GET_CATEGORIES, VOTE_POST } from '../Actions'
 import { combineReducers } from 'redux'
 
-function getPosts(state = [], action) {
+function posts(state = [], action) {
   switch (action.type) {
     case GET_POSTS:
       return action.state
+    case VOTE_POST:
+      const { post } = action
+      let newState = state.map( (p) => {
+        if (post.id === p.id) {
+          p.voteScore = post.voteScore
+        }
+        return p
+      })
+
+      return newState
     default:
       return state
   }
 }
 
-function getCategories(state = [], action) {
+function categories(state = [], action) {
   switch (action.type) {
     case GET_CATEGORIES:
       return action.state
@@ -21,6 +31,6 @@ function getCategories(state = [], action) {
 }
 
 export default combineReducers({
-  getPosts,
-  getCategories
+  posts,
+  categories,
 })
