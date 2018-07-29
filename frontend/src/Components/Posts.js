@@ -8,9 +8,12 @@ import Votes from './Votes'
 class Posts extends Component {
   state = {}
 
+  sortBy = require('sort-by')
+
   getPosts() {
     ReadableAPI.getPosts()
       .then(response => {
+        //response.sort(this.sortBy('voteScore'))
         this.props.getPosts(response)
       }) 
   }
@@ -41,6 +44,9 @@ class Posts extends Component {
                   <h3 className="post-title mb-small">{post.title}</h3> 
                   <p className="post-body">
                     {post.body}
+                  </p>
+                  <p className="post-author">
+                    posted by: {post.author}
                   </p>
                   <p className="post-comments">
                     {post.commentCount} comment(s)
