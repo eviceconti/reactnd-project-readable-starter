@@ -53,14 +53,29 @@ Utils
 .mb-small { margin-bottom: 1rem; }
 .mb-large { margin-bottom: 2rem; }
 
+.btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all .3s;
+}
 
+.btn:hover {
+  box-shadow: var(--shadow-box-dark);
+  transform: translateY(-2px) scale(1.1);
+  
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(1);
+}
 
 
 /*/////////////////////////////
 Categories Component
 */
 .categories {
-  max-width: 25rem;
+  max-width: 27rem;
   background-color: #fff;
   border-radius: 3px;
   border: var(--border-light);
@@ -74,16 +89,29 @@ Categories Component
   color: var(--color-grey-dark-1);
 }
 
+.categories-box {
+  text-align: center;
+}
+
 .category {
   display: inline-block;
+}
+
+.btn-category {
   margin: 1rem;
   padding: .5rem 1rem;
   font-size: 1.6rem;
   color: var(--color-grey-light-2);
   text-transform: lowercase;
-  background-image: linear-gradient(to right bottom, var(--color-primary-dark), var(--color-primary-light));
+  background-color: var(--color-grey-dark-3);
   border-radius: 2px;
 }
+
+.active-category {
+  background-image: linear-gradient(to right bottom, var(--color-primary-dark), var(--color-primary-light));
+}
+
+
 
 /*/////////////////////////
 Votes Component
@@ -104,18 +132,6 @@ Votes Component
 .post-votes p {
   font-size: 1rem;
   margin-bottom: .3rem;
-}
-
-.btn {
-  outline: none;
-  border: none;
-  transition: all .3s;
-}
-
-.btn:hover {
-  box-shadow: var(--shadow-box-dark);
-  transform: translateY(-2px) scale(1.1);
-  cursor: pointer;
 }
 
 .btn-icon {

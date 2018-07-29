@@ -25,12 +25,21 @@ class Categories extends Component {
         <h2 className="categories-title">
           Categories
         </h2>
-        {render && this.props.categories.map(category => (
-          <div 
-            className="category"
-            key={category.name}
-          >{category.name}</div>
-        ))}
+        <div className="categories-box">
+          {render && this.props.categories.map(category => (
+            <div 
+              className="category"
+              key={category.name}
+            >
+              <button 
+                className="btn btn-category active-category"
+              >
+                {category.name}
+              </button>
+              
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
