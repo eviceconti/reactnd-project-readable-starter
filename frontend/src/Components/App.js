@@ -11,22 +11,25 @@ class App extends Component {
   render() {
     
     return (
-      <div className="main">
-        <Route exact path="/" render={() => (
-          <Posts activeCategory="all"/>
-        )} />
-        <Route path="/react" render={() => (
-          <Posts activeCategory="react"/>
-        )} />
-        <Route path="/redux" render={() => (
-          <Posts activeCategory="redux"/>
-        )} />
-        <Route path="/udacity" render={() => (
-          <Posts activeCategory="udacity"/>
-        )} />
-          
-        <Categories />
-        <AddPost />
+      <div className="app">
+        <div className="main">
+          <Route exact path="/" render={() => (
+            <Posts activeCategory="all"/>
+          )} />
+          <Route path="/react" render={() => (
+            <Posts activeCategory="react"/>
+          )} />
+          <Route path="/redux" render={() => (
+            <Posts activeCategory="redux"/>
+          )} />
+          <Route path="/udacity" render={() => (
+            <Posts activeCategory="udacity"/>
+          )} />
+        </div>
+        <div className="side-bar">
+          <Categories />
+          <AddPost />
+        </div>
       </div>
     )
   }

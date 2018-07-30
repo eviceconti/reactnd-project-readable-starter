@@ -43,18 +43,19 @@ class AddPost extends Component {
 
   createPost(post) {
     ReadableAPI.createPost(post)
-      .then(response => {
-        console.log(response)
+      .then(() => {
+        this.closeModal()
       })
   }
 
   render() {
     return (
-      <div className="add-post">
+      <div className="categories center">
         <button
           onClick={() => this.openModal()}
+          className="btn btn-category"
         >
-          oi
+          Add New Post
         </button>
         <Modal
           className=''
@@ -62,7 +63,7 @@ class AddPost extends Component {
           onRequestClose={this.closeModal}
           contentLabel='Modal'
         >
-          <h3 className="modal-header">
+          <h3 className="modal-header mb-large">
             Add New Post
           </h3>
           <form action="" 
@@ -73,6 +74,7 @@ class AddPost extends Component {
             <input 
               type="text"
               id="title"
+              className="modal-input"
               value={this.state.title}
               placeholder="Type the Title"
               onChange={(e) => this.setState({title: e.target.value})}
@@ -81,6 +83,7 @@ class AddPost extends Component {
             <textarea 
               type="text"
               id="body"
+              className="modal-input"
               rows="3"
               value={this.state.body}
               placeholder="Type the Post Body"
@@ -90,6 +93,7 @@ class AddPost extends Component {
             <input 
               type="text"
               id="author"
+              className="modal-input"
               value={this.state.author}
               placeholder="Type the Author"
               onChange={(e) => this.setState({author: e.target.value})}
@@ -97,6 +101,7 @@ class AddPost extends Component {
             <label htmlFor="category">Select Category</label>
             <select 
               id="category"
+              className="modal-input"
               value={this.state.category}
               onChange={(e) => this.setState({category: e.target.value})}
             >
@@ -104,7 +109,7 @@ class AddPost extends Component {
               <option value="redux">redux</option>
               <option value="udacity">udacity</option>
             </select>
-            <button>Add Post</button>
+            <button className="btn btn-category">Add Post</button>
           </form>
 
         </Modal>

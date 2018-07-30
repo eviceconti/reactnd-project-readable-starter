@@ -7,23 +7,30 @@ import Votes from './Votes'
 import { Link } from 'react-router-dom';
 
 class Posts extends Component {
-  state = {}
-
+  state = {
+    update: 0
+  }
   sortBy = require('sort-by')
 
   getPosts() {
     if (this.props.activeCategory === 'all') {
       ReadableAPI.getPosts()
         .then(response => {
-          //response.sort(this.sortBy('voteScore'))
-          this.props.getPosts(response)
+          this.sortPosts('-voteScore', response)
         }) 
     } else {
       ReadableAPI.getCategoryPosts(this.props.activeCategory)
       .then((response) => {
-        this.props.getPosts(response)
+        this.sortPosts('-voteScore', response)
       })
     }
+  }
+
+  sortPosts(query, posts = this.props.posts) {
+    console.log(posts)
+    posts.sort(this.sortBy(query))
+    this.props.getPosts(posts)
+    this.setState({update: 1})
   }
   
   render() {
@@ -34,6 +41,18 @@ class Posts extends Component {
     
     return (
       <section className="main">
+        {this.state.teste}
+        <div className="sort">
+          <h2 className="sort-title">Sort Posts by:</h2>
+          <button 
+            className="btn btn-category active-category"
+            onClick={() => this.sortPosts('timestamp')}
+          >Data</button>
+          <button 
+            className="btn btn-category active-category"
+            onClick={() => this.sortPosts('-voteScore')}
+          >Votes</button>
+        </div>
         <h2 className="main-title mb-small">
           {this.props.activeCategory} Posts
         </h2>

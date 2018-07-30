@@ -52,6 +52,7 @@ Utils
 .mt-large { margin-top: 2rem; }
 .mb-small { margin-bottom: 1rem; }
 .mb-large { margin-bottom: 2rem; }
+.center { text-align: center; }
 
 .btn {
   outline: none;
@@ -70,6 +71,18 @@ Utils
 
 .btn:active {
   transform: translateY(-1px) scale(1);
+}
+
+/*///////////////////////////
+App Component
+*/
+.app {
+  display: flex;
+}
+
+.side-bar {
+  align-self: flex-start;
+  margin: 4rem 2rem;
 }
 
 
@@ -113,8 +126,6 @@ Categories Component
   background-image: linear-gradient(to right bottom, var(--color-primary-dark), var(--color-primary-light));
 }
 
-
-
 /*/////////////////////////
 Votes Component
 */
@@ -149,6 +160,7 @@ Posts Component
 */
 .main {
   margin: 2rem 1rem;
+  flex: 1 1 auto;
 }
 
 .main-title {
@@ -170,6 +182,7 @@ Posts Component
   border-radius: 2px;
   display: flex;
   max-width: 100rem;
+  min-width: 50rem;
 }
 
 .post:not(:last-child) {
@@ -200,4 +213,40 @@ Posts Component
 
 .post-comments {
 
+}
+
+/*////////////////////////////
+AddPost Component
+*/
+
+.add-post {
+  background-color: #fff;
+}
+
+.modal-header {
+  font-size: 2.4rem;
+  color: var(--color-grey-dark-2);
+  text-align: center;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  margin: 0 auto;
+
+}
+
+.modal-form label {
+  font-size: 1.6rem;
+  margin: 2rem 0 .5rem 0;
+  text-transform: capitalize;
+
+}
+
+.modal-input {
+  border: none;
+  background-color: var(--color-grey-light-3);
+  padding: .5rem 1rem;
+  font-size: 1.4rem;
 }
