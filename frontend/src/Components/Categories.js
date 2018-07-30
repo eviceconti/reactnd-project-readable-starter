@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import * as ReadableAPI from "../ReadableAPI";
 import { connect } from "react-redux";
-import { getCategories, selectCategory } from "../Actions";
+import { getCategories } from "../Actions";
 import { Link } from "react-router-dom";
 
 class Categories extends Component {

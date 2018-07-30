@@ -178,12 +178,20 @@ Posts Component
 
 .post-main {/*main text area*/
   padding: 1rem;
+  padding-left: 9rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .post-title {
   font-size: 1.6rem;
+}
+
+.post-category {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .post-body {

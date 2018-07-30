@@ -4,6 +4,7 @@ import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
 import { getPosts } from '../Actions'
 import Votes from './Votes'
+import { Link } from 'react-router-dom';
 
 class Posts extends Component {
   state = {}
@@ -34,7 +35,7 @@ class Posts extends Component {
     return (
       <section className="main">
         <h2 className="main-title mb-small">
-          Posts
+          {this.props.activeCategory} Posts
         </h2>
         <div className="posts">
           <ul className="posts-list">
@@ -49,6 +50,14 @@ class Posts extends Component {
                 ></Votes>
                 <div className="post-main">
                   <h3 className="post-title mb-small">{post.title}</h3> 
+                  <div className="post-category" key={post.category}>
+                    <Link
+                      to={`/${post.category}`}
+                      className="btn btn-category active-category"
+                    >
+                      {post.category}
+                    </Link>
+                  </div>
                   <p className="post-body">
                     {post.body}
                   </p>
