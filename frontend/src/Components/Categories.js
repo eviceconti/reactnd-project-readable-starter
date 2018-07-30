@@ -1,62 +1,73 @@
-import React, {Component} from 'react'
-import '../App.css'
-import * as ReadableAPI from '../ReadableAPI'
-import { connect } from 'react-redux'
-import { getCategories } from '../Actions'
+import React, { Component } from "react";
+import "../App.css";
+import * as ReadableAPI from "../ReadableAPI";
+import { connect } from "react-redux";
+import { getCategories, selectCategory } from "../Actions";
+import { Link } from "react-router-dom";
 
 class Categories extends Component {
-  state = {}
+  state = {};
 
   getCategories() {
-    ReadableAPI.getCategories()
-      .then(response => {
-        this.props.getCategories(response)
-      }) 
+    ReadableAPI.getCategories().then(response => {
+      this.props.getCategories(response);
+    });
   }
 
   render() {
-    let render = false
+    let render = false;
     if (this.props.categories.length !== 0) {
-      render = true
+      render = true;
     }
-    
+
     return (
       <div className="categories">
-        <h2 className="categories-title">
-          Categories
-        </h2>
+        <h2 className="categories-title">Categories</h2>
         <div className="categories-box">
-          {render && this.props.categories.map(category => (
-            <div 
-              className="category"
-              key={category.name}
+          <div className="category">
+            <Link
+              to="/"
+              className="btn btn-category active-category"
             >
-              <button 
-                className="btn btn-category active-category"
-              >
-                {category.name}
-              </button>
-              
-            </div>
-          ))}
+              ALL POSTS
+            </Link>
+          </div>
+
+          {render &&
+            this.props.categories.map(category => (
+              <div className="category" key={category.name}>
+                <Link
+                  to={`/${category.path}`}
+                  className="btn btn-category active-category"
+                >
+                  {category.name}
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
-    )
+    );
   }
 
   componentDidMount() {
-    this.getCategories()
+    this.getCategories();
   }
 }
 
 function mapStateToProps(state) {
-  return { categories: state.categories }
+  return {
+    categories: state.categories,
+    activeCategory: state.activeCategory
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCategories: (categories) => dispatch(getCategories(categories))
-  }
+    getCategories: categories => dispatch(getCategories(categories))
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Categories);

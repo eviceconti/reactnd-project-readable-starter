@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../App.css'
 import Categories from './Categories';
 import Posts from './Posts';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   state = {}
@@ -10,7 +11,19 @@ class App extends Component {
     
     return (
       <div className="main">
-        <Posts />
+        <Route exact path="/" render={() => (
+          <Posts activeCategory="all"/>
+        )} />
+        <Route path="/react" render={() => (
+          <Posts activeCategory="react"/>
+        )} />
+        <Route path="/redux" render={() => (
+          <Posts activeCategory="redux"/>
+        )} />
+        <Route path="/udacity" render={() => (
+          <Posts activeCategory="udacity"/>
+        )} />
+          
         <Categories />
       </div>
     )

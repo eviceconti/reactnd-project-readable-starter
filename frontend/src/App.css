@@ -58,6 +58,8 @@ Utils
   border: none;
   cursor: pointer;
   transition: all .3s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn:hover {

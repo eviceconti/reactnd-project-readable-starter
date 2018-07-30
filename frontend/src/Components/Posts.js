@@ -11,13 +11,20 @@ class Posts extends Component {
   sortBy = require('sort-by')
 
   getPosts() {
-    ReadableAPI.getPosts()
-      .then(response => {
-        //response.sort(this.sortBy('voteScore'))
+    if (this.props.activeCategory === 'all') {
+      ReadableAPI.getPosts()
+        .then(response => {
+          //response.sort(this.sortBy('voteScore'))
+          this.props.getPosts(response)
+        }) 
+    } else {
+      ReadableAPI.getCategoryPosts(this.props.activeCategory)
+      .then((response) => {
         this.props.getPosts(response)
-      }) 
+      })
+    }
   }
-
+  
   render() {
     let render = false
     if (this.props.posts.length !== 0) {
@@ -61,12 +68,15 @@ class Posts extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     this.getPosts()
   }
 }
 
 function mapStateToProps(state) {
-  return { posts: state.posts }
+  return { 
+    posts: state.posts,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
