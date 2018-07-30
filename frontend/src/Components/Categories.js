@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import "../App.css";
-import * as ReadableAPI from "../ReadableAPI";
-import { connect } from "react-redux";
-import { getCategories } from "../Actions";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"
+import "../App.css"
+import * as ReadableAPI from "../ReadableAPI"
+import { connect } from "react-redux"
+import { getCategories } from "../Actions"
+import { Link } from "react-router-dom"
 
 class Categories extends Component {
-  state = {};
+  state = {}
 
   getCategories() {
     ReadableAPI.getCategories().then(response => {
-      this.props.getCategories(response);
-    });
+      this.props.getCategories(response)
+    })
   }
 
   render() {
-    let render = false;
+    let render = false
     if (this.props.categories.length !== 0) {
-      render = true;
+      render = true
     }
 
     return (
@@ -46,11 +46,11 @@ class Categories extends Component {
             ))}
         </div>
       </div>
-    );
+    )
   }
 
   componentDidMount() {
-    this.getCategories();
+    this.getCategories()
   }
 }
 
@@ -58,16 +58,16 @@ function mapStateToProps(state) {
   return {
     categories: state.categories,
     activeCategory: state.activeCategory
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getCategories: categories => dispatch(getCategories(categories))
-  };
+  }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Categories);
+)(Categories)

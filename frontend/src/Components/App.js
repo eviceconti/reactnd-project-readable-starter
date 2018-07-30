@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../App.css'
 import Categories from './Categories';
 import Posts from './Posts';
+import AddPost from './AddPost';
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
         )} />
           
         <Categories />
+        <AddPost />
       </div>
     )
   }
