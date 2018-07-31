@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getPosts } from '../Actions'
 import Votes from './Votes'
 import { Link } from 'react-router-dom';
+import AddPost from './AddPost';
 
 class Posts extends Component {
   state = {
@@ -41,13 +42,12 @@ class Posts extends Component {
     
     return (
       <section className="main">
-        {this.state.teste}
         <div className="sort">
           <h2 className="sort-title">Sort Posts by:</h2>
           <button 
             className="btn btn-category active-category"
             onClick={() => this.sortPosts('timestamp')}
-          >Data</button>
+          >Date</button>
           <button 
             className="btn btn-category active-category"
             onClick={() => this.sortPosts('-voteScore')}
@@ -77,6 +77,10 @@ class Posts extends Component {
                       {post.category}
                     </Link>
                   </div>
+                  <div className="add-edit">
+                    <AddPost action='edit' post={post} />
+                    <AddPost action='delete' post={post} />
+                  </div>
                   <p className="post-body">
                     {post.body}
                   </p>
@@ -103,7 +107,7 @@ class Posts extends Component {
 
 function mapStateToProps(state) {
   return { 
-    posts: state.posts,
+    posts: state.posts
   }
 }
 

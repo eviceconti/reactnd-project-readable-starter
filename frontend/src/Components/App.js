@@ -28,7 +28,7 @@ class App extends Component {
         </div>
         <div className="side-bar">
           <Categories />
-          <AddPost />
+          <AddPost action='add' />
         </div>
       </div>
     )

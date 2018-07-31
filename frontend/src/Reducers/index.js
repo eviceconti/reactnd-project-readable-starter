@@ -1,5 +1,5 @@
 //Reducer
-import { GET_POSTS, GET_CATEGORIES, VOTE_POST } from '../Actions'
+import { GET_POSTS, GET_CATEGORIES, VOTE_POST, ADD_POST, DELETE_POST } from '../Actions'
 import { combineReducers } from 'redux'
 
 function posts(state = [], action) {
@@ -14,8 +14,17 @@ function posts(state = [], action) {
         }
         return p
       })
-
       return newState
+    case ADD_POST:
+      console.log('action.post',action.post)
+      console.log('reducer state', state)
+      return [
+        ...state,
+        action.post
+      ]
+    case DELETE_POST:
+      let deletedState = state.filter((p) => p.id !== action.post.id)
+      return deletedState
     default:
       return state
   }

@@ -223,6 +223,13 @@ AddPost Component
   background-color: #fff;
 }
 
+.add-edit {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+}
+
 .modal-header {
   font-size: 2.4rem;
   color: var(--color-grey-dark-2);
