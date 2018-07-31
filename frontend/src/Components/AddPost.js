@@ -4,11 +4,13 @@ import Modal from 'react-modal'
 import * as ReadableAPI from "../ReadableAPI"
 import { MdEdit, MdAdd, MdDelete } from 'react-icons/lib/md'
 import { connect } from 'react-redux'
-import { addPost, deletePost } from '../Actions'
+import { addPost, deletePost, editPost } from '../Actions'
 
 class AddPost extends Component {
   state = {
     modalOpen: false,
+    action: 'add',
+    id: '',
     title: '',
     body: '',
     author: '',
@@ -29,7 +31,7 @@ class AddPost extends Component {
 
   handleForm = (e) => {
     e.preventDefault()
-    
+    console.log(this.state)
     let id = require('uuid/v4')
 
     let post = {
@@ -41,7 +43,7 @@ class AddPost extends Component {
       category: this.state.category
     }
     
-    this.createPost(post)
+    this.handlePost(post)
     //reset form
     this.setState({
       title: '',
@@ -51,12 +53,25 @@ class AddPost extends Component {
     })
   }
 
-  createPost(post) {
-    ReadableAPI.createPost(post)
-      .then((response) => {
+  handlePost(post) {
+    if (this.state.action === 'add') {
+      ReadableAPI.createPost(post)
+        .then((response) => {
+          this.closeModal()
+          this.props.addPost(response)
+        })
+    } else {
+      //edit post. title and body = strings
+    let params = {title: post.title, body: post.body}
+    ReadableAPI.editPost(this.state.id, params)
+      .then(response => {
+        console.log(response)
+        this.props.editPost(response)
         this.closeModal()
-        this.props.addPost(response)
       })
+      //set state.action to default = add
+      this.setState({action: 'add'})
+    } 
   }
 
   deletePost(postId) {
@@ -65,6 +80,20 @@ class AddPost extends Component {
       .then(response => {
         this.props.deletePost(response)
       })
+  }
+
+  editPost(post) {
+    console.log(post)
+    this.setState({
+      action: 'edit',
+      id: post.id,
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      category: post.category
+    })
+    this.openModal()
+    console.log(this.state)
   }
 
   render() {
@@ -162,7 +191,8 @@ class AddPost extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     addPost: (post) => dispatch(addPost(post)),
-    deletePost: (post) => dispatch(deletePost(post))
+    deletePost: (post) => dispatch(deletePost(post)),
+    editPost: (post) => dispatch(editPost(post))
   }
 }
 

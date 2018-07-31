@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../App.css'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPosts } from '../Actions'
+import { getPosts, sortPosts } from '../Actions'
 import Votes from './Votes'
 import { Link } from 'react-router-dom';
 import AddPost from './AddPost';
@@ -30,7 +30,7 @@ class Posts extends Component {
   sortPosts(query, posts = this.props.posts) {
     console.log(posts)
     posts.sort(this.sortBy(query))
-    this.props.getPosts(posts)
+    this.props.sortPosts(posts)
     this.setState({update: 1})
   }
   
@@ -113,7 +113,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPosts: (posts) => dispatch(getPosts(posts))
+    getPosts: (posts) => dispatch(getPosts(posts)),
+    sortPosts: (posts) => dispatch(sortPosts(posts))
   }
 }
 
