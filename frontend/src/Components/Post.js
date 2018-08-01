@@ -22,7 +22,7 @@ class Post extends Component {
 
     return (
       render && (
-        <div className="post">
+        <div className="post-page">
           <div className="post-main">
             <Votes 
               votes={post.voteScore}

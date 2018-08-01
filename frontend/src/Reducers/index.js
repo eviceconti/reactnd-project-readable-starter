@@ -1,5 +1,5 @@
 //Reducer
-import { GET_POSTS, GET_CATEGORIES, VOTE_POST, ADD_POST, EDIT_POST, DELETE_POST, SORT_POSTS, GET_POST } from '../Actions'
+import { GET_POSTS, GET_CATEGORIES, VOTE_POST, ADD_POST, EDIT_POST, DELETE_POST, SORT_POSTS, GET_POST, GET_POST_COMMENTS } from '../Actions'
 import { combineReducers } from 'redux'
 
 function posts(state = [], action) {
@@ -59,8 +59,18 @@ function postDetails(state = [], action) {
   }
 }
 
+function postComments(state = [], action) {
+  switch (action.type) {
+    case GET_POST_COMMENTS:
+      return action.comments
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   posts,
   categories,
-  postDetails
+  postDetails,
+  postComments
 })

@@ -9,6 +9,7 @@ export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const SORT_POSTS = 'SORT_POSTS'
+export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 
 export function getPosts(state) {
   return {
@@ -17,17 +18,17 @@ export function getPosts(state) {
   }
 }
 
-export function getPost(post) {
-  return {
-    type: GET_POST,
-    post
-  }
-}
-
 export function getCategories(state) {
   return {
     type: GET_CATEGORIES,
     state
+  }
+}
+
+export function getPost(post) {
+  return {
+    type: GET_POST,
+    post
   }
 }
 
@@ -63,5 +64,12 @@ export function sortPosts(posts) {
   return {
     type: SORT_POSTS,
     posts
+  }
+}
+
+export function getPostComments(comments) {
+  return {
+    type: GET_POST_COMMENTS,
+    comments
   }
 }
