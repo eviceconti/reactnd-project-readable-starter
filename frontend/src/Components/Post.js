@@ -2,39 +2,44 @@ import React, { Component } from 'react'
 import '../App.css'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPosts, sortPosts } from '../Actions'
+import { getPost } from '../Actions'
 import Votes from './Votes'
 import AddPost from './AddPost'
+import Comments from './Comments'
 
 class Post extends Component {
   state = {}
 
   render() {
-    let post = {}
+    let post = this.props.post
     let render = false
     console.log(render)
-    if (this.props.posts.length !== 0) {
+    if (post.length !== 0) {
       render = true
       console.log(render)
-      post = this.props.posts.filter(p => p.id === this.props.id)[0]
-      console.log(post)
+      console.log('render post',post)
     }
 
     return (
       render && (
-        <div className="post-main">
-          <Votes 
-            votes={post.voteScore}
-            postId={post.id}
-          ></Votes>
-          <div className="add-edit">
-            <AddPost action='edit' post={post} />
-            <AddPost action='delete' post={post} />
+        <div className="post">
+          <div className="post-main">
+            <Votes 
+              votes={post.voteScore}
+              postId={post.id}
+            ></Votes>
+            <div className="add-edit">
+              <AddPost action='edit' post={post} />
+              <AddPost action='delete' post={post} />
+            </div>
+            <h3 className="post-title">{post.title}</h3>
+            {post.body}
+            {post.author}
+            {post.commentCount} Comment(s)
           </div>
-          <h3 className="post-title">{post.title}</h3>
-          {post.body}
-          {post.author}
-          {post.commentCount} Comment(s)
+          <div className="comments">
+            <Comments postId={post.id} />
+          </div>
         </div>
       )
     )
@@ -45,15 +50,22 @@ class Post extends Component {
     ReadableAPI.getPostDetails(this.props.id)
       .then(response => {
         console.log(response)
+        this.props.getPost(response)
       })
   }
 }
 
 function mapStateToProps(state) {
   return { 
-    posts: state.posts
+    post: state.postDetails
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getPost: (post) => dispatch(getPost(post))
   }
 }
 
 
-export default connect(mapStateToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
