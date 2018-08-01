@@ -14,13 +14,13 @@ class Posts extends Component {
   sortBy = require('sort-by')
 
   getPosts() {
-    if (this.props.activeCategory === 'all') {
+    if (this.props.category === 'all') {
       ReadableAPI.getPosts()
         .then(response => {
           this.sortPosts('-voteScore', response)
         }) 
     } else {
-      ReadableAPI.getCategoryPosts(this.props.activeCategory)
+      ReadableAPI.getCategoryPosts(this.props.category)
       .then((response) => {
         this.sortPosts('-voteScore', response)
       })
@@ -82,7 +82,9 @@ class Posts extends Component {
                     <AddPost action='delete' post={post} />
                   </div>
                   <p className="post-body">
-                    {post.body}
+                    <Link to={`/${post.category}/${post.id}`}>
+                      {post.body}
+                    </Link>
                   </p>
                   <p className="post-author">
                     posted by: {post.author}

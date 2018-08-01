@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import '../App.css'
-import Categories from './Categories';
-import Posts from './Posts';
-import AddPost from './AddPost';
-import { Route } from 'react-router-dom';
+import Categories from './Categories'
+import Posts from './Posts'
+import AddPost from './AddPost'
+import Post from './Post'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   state = {}
@@ -14,18 +15,19 @@ class App extends Component {
       <div className="app">
         <div className="main">
           <Route exact path="/" render={() => (
-            <Posts activeCategory="all"/>
+            <Posts category="all"/>
           )} />
-          <Route path="/react" render={() => (
-            <Posts activeCategory="react"/>
+          <Route exact path="/:category" render={(props) => (
+            <Posts {...props.match.params} />
           )} />
-          <Route path="/redux" render={() => (
-            <Posts activeCategory="redux"/>
+          <Route exact path="/:category/:id" render={(props) => (
+            <Post {...props.match.params} />
           )} />
-          <Route path="/udacity" render={() => (
-            <Posts activeCategory="udacity"/>
-          )} />
+          
         </div>
+
+        {//SideBar is always active
+        }
         <div className="side-bar">
           <Categories />
           <AddPost action='add' />
@@ -34,6 +36,15 @@ class App extends Component {
     )
   }
 }
+
+/*
+<Route path="/redux" render={() => (
+            <Posts activeCategory="redux"/>
+          )} />
+          <Route path="/udacity" render={() => (
+            <Posts activeCategory="udacity"/>
+          )} />
+*/
 
 
 export default App
