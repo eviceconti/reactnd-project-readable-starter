@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import '../App.css'
-import * as ReadableAPI from '../ReadableAPI'
+//import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPosts, sortPosts } from '../Actions'
+import { sortPosts } from '../Actions'
 import Votes from './Votes'
 import { Link } from 'react-router-dom';
 import AddPost from './AddPost';
@@ -12,32 +12,29 @@ class Posts extends Component {
     update: 0
   }
   sortBy = require('sort-by')
-
-  getPosts() {
-    if (this.props.category === 'all') {
-      ReadableAPI.getPosts()
-        .then(response => {
-          this.sortPosts('-voteScore', response)
-        }) 
+  posts = []
+  filteredPosts = []
+  canRender = false
+  
+  filterPosts() {
+    if (this.props.category !== 'all') {
+      this.filteredPosts = this.props.posts.filter(post => post.category === this.props.category)
     } else {
-      ReadableAPI.getCategoryPosts(this.props.category)
-      .then((response) => {
-        this.sortPosts('-voteScore', response)
-      })
+      this.filteredPosts = this.props.posts
     }
+    //console.log('filtered', this.filteredPosts)
   }
 
-  sortPosts(query, posts = this.props.posts) {
-    console.log(posts)
-    posts.sort(this.sortBy(query))
-    this.props.sortPosts(posts)
+  sortPosts(query) {
+    this.filteredPosts.sort(this.sortBy(query))
     this.setState({update: 1})
+    //sort action-reducer deleted. The sort is not changing the store, only props
   }
   
   render() {
-    let render = false
     if (this.props.posts.length !== 0) {
-      render = true
+      this.filterPosts()
+      this.canRender = true
     }
     
     return (
@@ -54,11 +51,11 @@ class Posts extends Component {
           >Votes</button>
         </div>
         <h2 className="main-title mb-small">
-          {this.props.activeCategory} Posts
+          {this.props.category} Posts
         </h2>
         <div className="posts">
           <ul className="posts-list">
-            {render && this.props.posts.map(post => (
+            {this.canRender && this.filteredPosts.map(post => (
               <li 
                 className="post"
                 key={post.id}
@@ -101,10 +98,6 @@ class Posts extends Component {
     )
   }
 
-  componentDidMount() {
-    console.log(this.props)
-    this.getPosts()
-  }
 }
 
 function mapStateToProps(state) {
@@ -113,11 +106,13 @@ function mapStateToProps(state) {
   }
 }
 
+/*
 function mapDispatchToProps(dispatch) {
   return {
     getPosts: (posts) => dispatch(getPosts(posts)),
-    sortPosts: (posts) => dispatch(sortPosts(posts))
+    /*sortPosts: (posts) => dispatch(sortPosts(posts))
   }
 }
+*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts)
+export default connect(mapStateToProps)(Posts)

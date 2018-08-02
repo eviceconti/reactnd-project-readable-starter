@@ -1,18 +1,20 @@
 import React, { Component } from "react"
 import "../App.css"
-import * as ReadableAPI from "../ReadableAPI"
+//import * as ReadableAPI from "../ReadableAPI"
 import { connect } from "react-redux"
-import { getCategories } from "../Actions"
+//import { getCategories } from "../Actions"
 import { Link } from "react-router-dom"
 
 class Categories extends Component {
   state = {}
 
+  /*
   getCategories() {
     ReadableAPI.getCategories().then(response => {
       this.props.getCategories(response)
     })
   }
+  */
 
   render() {
     let render = false
@@ -48,10 +50,6 @@ class Categories extends Component {
       </div>
     )
   }
-
-  componentDidMount() {
-    this.getCategories()
-  }
 }
 
 function mapStateToProps(state) {
@@ -60,13 +58,12 @@ function mapStateToProps(state) {
   }
 }
 
+/*
 function mapDispatchToProps(dispatch) {
   return {
     getCategories: categories => dispatch(getCategories(categories))
   }
 }
+*/
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Categories)
+export default connect(mapStateToProps)(Categories)

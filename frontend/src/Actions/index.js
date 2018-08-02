@@ -8,7 +8,7 @@ export const VOTE_POST = 'VOTE_POST'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
-export const SORT_POSTS = 'SORT_POSTS'
+//export const SORT_POSTS = 'SORT_POSTS'
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 
 export function getPosts(state) {
@@ -60,12 +60,14 @@ export function deletePost(post) {
   }
 }
 
+/*
 export function sortPosts(posts) {
   return {
     type: SORT_POSTS,
     posts
   }
 }
+*/
 
 export function getPostComments(comments) {
   return {

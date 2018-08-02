@@ -1,13 +1,29 @@
 import React, { Component } from 'react'
+import * as ReadableAPI from '../ReadableAPI'
+import { connect } from 'react-redux'
+import { getPosts, getCategories } from '../Actions'
 import '../App.css'
 import Categories from './Categories'
 import Posts from './Posts'
 import AddPost from './AddPost'
 import Post from './Post'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 
 class App extends Component {
   state = {}
+
+  getPosts() {
+    ReadableAPI.getPosts()
+      .then(response => {
+        this.props.getPosts(response)
+      })
+  }
+  
+  getCategories() {
+    ReadableAPI.getCategories().then(response => {
+      this.props.getCategories(response)
+    })
+  }
 
   render() {
     
@@ -35,19 +51,30 @@ class App extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.getPosts()
+    this.getCategories()
+  }
+
 }
 
-/*
-<Route path="/redux" render={() => (
-            <Posts activeCategory="redux"/>
-          )} />
-          <Route path="/udacity" render={() => (
-            <Posts activeCategory="udacity"/>
-          )} />
-*/
+function mapStateToProps(state) {
+  return { 
+    posts: state.posts,
+    categories: state.categories
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getPosts: posts => dispatch(getPosts(posts)),
+    getCategories: categories => dispatch(getCategories(categories)),
+    //sortPosts: (posts) => dispatch(sortPosts(posts))
+  }
+}
 
-export default App
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 
 /*
   //Data Structure
