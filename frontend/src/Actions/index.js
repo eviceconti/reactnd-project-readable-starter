@@ -25,13 +25,6 @@ export function getCategories(state) {
   }
 }
 
-export function getPost(post) {
-  return {
-    type: GET_POST,
-    post
-  }
-}
-
 export function votePost(post) {
   return {
     type: VOTE_POST,

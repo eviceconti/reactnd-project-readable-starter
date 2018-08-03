@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../App.css'
 //import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { sortPosts } from '../Actions'
+//import { sortPosts } from '../Actions'
 import Votes from './Votes'
 import { Link } from 'react-router-dom';
 import AddPost from './AddPost';

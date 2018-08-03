@@ -1,44 +1,55 @@
 import React, { Component } from 'react'
 import '../App.css'
-import * as ReadableAPI from '../ReadableAPI'
+//import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPost } from '../Actions'
+//import { getPost } from '../Actions'
 import Votes from './Votes'
 import AddPost from './AddPost'
 import Comments from './Comments'
 
 class Post extends Component {
   state = {}
+  post = {}
+  canRender = false
+  date
+
+  setPost() {
+    this.post = this.props.posts.filter(p => p.id === this.props.id)[0]
+    this.date = new Date(this.post.timestamp)
+    //console.log(this.date.toJSON())
+    console.log(this.date.toDateString())
+  }
+
 
   render() {
-    let post = this.props.post
-    let render = false
-    console.log(render)
-    if (post.length !== 0) {
-      render = true
-      console.log(render)
-      console.log('render post',post)
+    this.post = this.props.posts
+    if (this.props.posts.length !== 0) {
+      this.canRender = true
+      this.setPost()
+      console.log(this.canRender)
+      console.log('render post',this.post)
     }
 
     return (
-      render && (
+      this.canRender && (
         <div className="post-page">
           <div className="post-main">
             <Votes 
-              votes={post.voteScore}
-              postId={post.id}
+              votes={this.post.voteScore}
+              postId={this.post.id}
             ></Votes>
             <div className="add-edit">
-              <AddPost action='edit' post={post} />
-              <AddPost action='delete' post={post} />
+              <AddPost action='edit' post={this.post} />
+              <AddPost action='delete' post={this.post} />
             </div>
-            <h3 className="post-title">{post.title}</h3>
-            {post.body}
-            {post.author}
-            {post.commentCount} Comment(s)
+            <h3 className="post-title">{this.post.title}</h3>
+            {this.post.body}
+            {this.post.author}
+            Posted on: {this.date.toDateString()}
+            {this.post.commentCount} Comment(s)
           </div>
           <div className="comments">
-            <Comments postId={post.id} />
+            <Comments postId={this.post.id} />
           </div>
         </div>
       )
@@ -47,25 +58,29 @@ class Post extends Component {
 
   componentDidMount() {
     console.log('props', this.props)
+    /*
     ReadableAPI.getPostDetails(this.props.id)
       .then(response => {
         console.log(response)
         this.props.getPost(response)
       })
+      */
   }
 }
 
 function mapStateToProps(state) {
   return { 
-    post: state.postDetails
+    posts: state.posts
   }
 }
 
+/*
 function mapDispatchToProps(dispatch) {
   return {
     getPost: (post) => dispatch(getPost(post))
   }
 }
+*/
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps)(Post)

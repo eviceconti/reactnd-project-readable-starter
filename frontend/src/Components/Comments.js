@@ -13,7 +13,10 @@ class Comments extends Component {
         <h4 className="comments-title">Comments</h4>
         <ul className="comments-list">
           {this.props.comments.map(comment => (
-            <li className="comment">
+            <li 
+              className="comment"
+              key={comment.id}
+            >
               {comment.body}
               {comment.author}
               {comment.voteScore}
