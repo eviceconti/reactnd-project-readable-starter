@@ -54,13 +54,13 @@ function comments(state = [], action) {
     case GET_COMMENTS:
       return action.comments
     case VOTE_COMMENT:
-      let newState = state.map( (c) => {
+      let newVote = state.map( (c) => {
         if (action.comment.id === c.id) {
-          c.commentScore = action.comment.commentScore
+          c.voteScore = action.comment.voteScore
         }
         return c
       })
-      return newState
+      return newVote
     
       default:
       return state

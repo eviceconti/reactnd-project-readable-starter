@@ -3,6 +3,7 @@ import '../App.css'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
 import { getComments } from '../Actions'
+import Votes from './Votes';
 
 class Comments extends Component {
   state = {}
@@ -17,6 +18,12 @@ class Comments extends Component {
               className="comment"
               key={comment.id}
             >
+              <Votes 
+                type="comment"
+                votes={comment.voteScore}
+                id={comment.id}
+              >
+              </Votes>
               {comment.body}
               {comment.author}
               {comment.voteScore}
