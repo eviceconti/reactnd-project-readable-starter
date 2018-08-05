@@ -61,8 +61,9 @@ class Posts extends Component {
                 key={post.id}
               >
                 <Votes 
+                  type="post"
                   votes={post.voteScore}
-                  postId={post.id}
+                  id={post.id}
                 ></Votes>
                 <div className="post-main">
                   <h3 className="post-title mb-small">{post.title}</h3> 

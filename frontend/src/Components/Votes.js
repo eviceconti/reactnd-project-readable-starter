@@ -2,19 +2,36 @@ import React, { Component } from 'react'
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/lib/md'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { votePost } from '../Actions'
+import { votePost, voteComment } from '../Actions'
 
 class Votes extends Component {
   state = {}
 
-  handleClick(postId, params) {
+  /*
+  Votes works for both posts and comments
+  Props received should be 
+  type: 'post' or 'comment'
+  id: id of the post or comment
+  params: object { option: 'str' } - str: 'upVote' or 'downVote'
+  */
+  handleClick(type, id, params) {
     console.log(this.props)
-    console.log(postId, params)
-    ReadableAPI.votePost(postId, params)
-      .then(response => {
-        console.log(response)
-        this.props.votePost(response)
-      })
+    console.log(id, params)
+
+    if (type === 'post') {
+      ReadableAPI.votePost(id, params)
+        .then(response => {
+          console.log(response)
+          this.props.votePost(response)
+        })
+    }
+    if (type === 'comment') {
+      ReadableAPI.voteComment(id, params)
+        .then(response => {
+          console.log(response)
+          this.props.voteComment(response)
+        })
+    }
   }
 
   render() {
@@ -24,7 +41,8 @@ class Votes extends Component {
           className="btn"
           onClick={
             () => this.handleClick(
-              this.props.postId, 
+              this.props.type,
+              this.props.id, 
               { option: 'upVote' }
             )
           }
@@ -37,7 +55,8 @@ class Votes extends Component {
           className="btn"
           onClick={
             () => this.handleClick(
-              this.props.postId, 
+              this.props.type,
+              this.props.id, 
               { option: 'downVote' }
             )
           }
@@ -51,7 +70,8 @@ class Votes extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    votePost: (post) => dispatch(votePost(post))
+    votePost: (post) => dispatch(votePost(post)),
+    voteComment: (comment) => dispatch(voteComment(comment))
   }
 }
 

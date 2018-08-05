@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../App.css'
 import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPostComments } from '../Actions'
+import { getComments } from '../Actions'
 
 class Comments extends Component {
   state = {}
@@ -31,7 +31,7 @@ class Comments extends Component {
   componentDidMount() {
     ReadableAPI.getPostComments(this.props.postId)
       .then(response => {
-        this.props.getPostComments(response)
+        this.props.getComments(response)
         console.log('comments props: ', this.props)
       })
   }
@@ -39,13 +39,13 @@ class Comments extends Component {
 
 function mapStateToProps(state) {
   return { 
-    comments: state.postComments
+    comments: state.comments
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPostComments: (comments) => dispatch(getPostComments(comments))
+    getComments: (comments) => dispatch(getComments(comments))
   }
 }
 

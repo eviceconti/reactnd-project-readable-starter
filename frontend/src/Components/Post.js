@@ -35,8 +35,9 @@ class Post extends Component {
         <div className="post-page">
           <div className="post-main">
             <Votes 
+              type="post"
               votes={this.post.voteScore}
-              postId={this.post.id}
+              id={this.post.id}
             ></Votes>
             <div className="add-edit">
               <AddPost action='edit' post={this.post} />
