@@ -257,3 +257,10 @@ AddPost Component
   padding: .5rem 1rem;
   font-size: 1.4rem;
 }
+
+/*//////////////////
+Add Comment Component
+*/
+.comment {
+  position: relative;
+}

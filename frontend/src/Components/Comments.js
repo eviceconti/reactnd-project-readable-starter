@@ -4,6 +4,7 @@ import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
 import { getComments } from '../Actions'
 import Votes from './Votes';
+import AddComment from './AddComment';
 
 class Comments extends Component {
   state = {}
@@ -12,6 +13,7 @@ class Comments extends Component {
     return (
       <div className="comments">
         <h4 className="comments-title">Comments</h4>
+        <AddComment action="add" postId={this.props.postId}></AddComment>
         <ul className="comments-list">
           {this.props.comments.map(comment => (
             <li 
@@ -24,9 +26,12 @@ class Comments extends Component {
                 id={comment.id}
               >
               </Votes>
+              <div className="add-edit">
+                <AddComment action="edit" comment={comment}></AddComment>
+                <AddComment action="delete" comment={comment}></AddComment>
+              </div>
               {comment.body}
               {comment.author}
-              {comment.voteScore}
             </li>
           ))}
         </ul>

@@ -11,6 +11,9 @@ export const DELETE_POST = 'DELETE_POST'
 //export const SORT_POSTS = 'SORT_POSTS'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export function getPosts(state) {
   return {
@@ -73,6 +76,27 @@ export function getComments(comments) {
 export function voteComment(comment) {
   return {
     type: VOTE_COMMENT,
+    comment
+  }
+}
+
+export function addComment(comment) {
+  return {
+    type: ADD_COMMENT,
+    comment
+  }
+}
+
+export function editComment(comment) {
+  return {
+    type: EDIT_COMMENT,
+    comment
+  }
+}
+
+export function deleteComment(comment) {
+  return {
+    type: DELETE_COMMENT,
     comment
   }
 }
