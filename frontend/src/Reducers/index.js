@@ -6,8 +6,6 @@ function posts(state = [], action) {
   switch (action.type) {
     case GET_POSTS:
       return action.state
-      //case SORT_POSTS:
-      //return action.posts
     case VOTE_POST:
       let newState = state.map( (p) => {
         if (action.post.id === p.id) {
@@ -17,15 +15,12 @@ function posts(state = [], action) {
       })
       return newState
     case ADD_POST:
-      console.log('action.post',action.post)
-      console.log('reducer state', state)
       return [
         ...state,
         action.post
       ]
     case EDIT_POST:
-      console.log('action.post',action.post)
-      console.log('reducer state', state)
+      //remove the edited post (using the .filter) from editedPosts and after that return this array with the new data in the end
       let editedPosts = state.filter(p => p.id !== action.post.id)
       console.log('editedPosts')
       return [
@@ -62,15 +57,12 @@ function comments(state = [], action) {
       })
       return newVote
     case ADD_COMMENT:
-      console.log('action.comment',action.comment)
-      console.log('reducer state', state)
       return [
         ...state,
         action.comment
       ]
     case EDIT_COMMENT:
-      console.log('action.comment',action.comment)
-      console.log('reducer state', state)
+      //similar than edit post
       let editedComments = state.filter(c => c.id !== action.comment.id)
       console.log('editedComments')
       return [

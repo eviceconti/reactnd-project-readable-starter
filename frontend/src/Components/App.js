@@ -13,6 +13,8 @@ import { Route, withRouter } from 'react-router-dom'
 class App extends Component {
   state = {}
 
+  // all posts and categories are comming from API-Server via the App component then they are updated in the redux store
+  
   getPosts() {
     ReadableAPI.getPosts()
       .then(response => {
@@ -28,6 +30,8 @@ class App extends Component {
 
   render() {
     
+    // the App component renders only the routes and the Categories Component, so in all pages is possible to see them and navigate through all the pages
+
     return (
       <div className="app">
         <div className="main">

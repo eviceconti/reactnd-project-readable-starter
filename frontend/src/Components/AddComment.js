@@ -58,7 +58,6 @@ class AddComment extends Component {
       ReadableAPI.createComment(comment)
         .then((response) => {
           this.closeModal()
-          console.log(response)
           this.props.addComment(response)
         })
     } else {
@@ -66,7 +65,6 @@ class AddComment extends Component {
     let params = { body: comment.body }
     ReadableAPI.editComment(this.state.id, params)
       .then(response => {
-        console.log(response)
         this.props.editComment(response)
         this.closeModal()
       })
