@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router';
 import '../App.css'
 //import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
@@ -11,43 +12,58 @@ class Post extends Component {
   state = {}
   post = {}
   canRender = false
+  postDeleted = true
   date
 
   setPost() {
+    console.log()
     this.post = this.props.posts.filter(p => p.id === this.props.id)[0]
-    this.date = new Date(this.post.timestamp)
-    //console.log(this.date.toJSON())
-    console.log(this.date.toDateString())
+    if (this.post) {
+      this.postDeleted = false
+      this.canRender = true
+      this.date = new Date(this.post.timestamp)
+      //console.log(this.date.toJSON())
+      console.log(this.date.toDateString())
+    }
   }
 
 
   render() {
-    this.post = this.props.posts
+    //this.post = this.props.posts
     if (this.props.posts.length !== 0) {
-      this.canRender = true
+      this.postDeleted = true
       this.setPost()
-      console.log(this.canRender)
+    }
+    if (!this.postDeleted) {
+      console.log(this.canRender, this.postDeleted)
       console.log('render post',this.post)
     }
 
+    if (this.postDeleted) {
+      return (
+        <Redirect to="/page-404" />
+      )
+    } else {
     return (
       this.canRender && (
         <div className="post-page">
-          <div className="post-main">
+            <div className="post-area">
             <Votes 
               type="post"
               votes={this.post.voteScore}
               id={this.post.id}
             ></Votes>
+              <div className="post-main">
             <div className="add-edit">
               <AddPost action='edit' post={this.post} />
               <AddPost action='delete' post={this.post} />
             </div>
             <h3 className="post-title">{this.post.title}</h3>
-            {this.post.body}
-            {this.post.author}
-            Posted on: {this.date.toDateString()}
-            {this.post.commentCount} Comment(s)
+                <p>{this.post.body}</p>
+                <p>Author: {this.post.author}</p>
+                <p>Posted on: {this.date.toDateString()}</p>
+                <p>{this.post.commentCount} Comment(s)</p>
+              </div>
           </div>
           <div className="comments">
             <Comments postId={this.post.id} />
@@ -55,6 +71,7 @@ class Post extends Component {
         </div>
       )
     )
+  }
   }
 
   componentDidMount() {

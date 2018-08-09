@@ -258,9 +258,92 @@ AddPost Component
   font-size: 1.4rem;
 }
 
+
+/*//////////////////
+Post Component
+*/
+.post-page {
+  
+}
+
+.post-area {
+  display: flex;
+  margin: 2rem;
+}
+
+.post-main {
+  background-color: #fff;
+  flex: 1 1 auto;
+}
+
+.post-main p {
+  margin-top: .5rem;
+  font-size: 1.2rem;
+}
+
+
+/*/////////////////////
+Comments Compoenent
+*/
+.comments {
+  position: relative;
+  margin: 2rem;
+  padding: 0;
+  width: 75%;
+}
+
+.comments-title {
+  font-size: 1.6rem;
+  margin: .5rem 1rem;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.add-comment {
+  position: absolute;
+  right: -23.2rem;
+  top: 0;
+  width: 21rem;
+  font-size: 1.2rem;
+}
+
+.add-edit-comment {
+  display: flex;
+  align-items: flex-end;
+}
+
+.comments-list {
+  list-style: none;
+}
+
+
 /*//////////////////
 Add Comment Component
 */
 .comment {
   position: relative;
+  background-color: #fff;
+  margin: 2rem 0 0 0;
+}
+
+/*
+Comment Component
+*/
+.comment {
+  display: flex;
+}
+
+.comment-main {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+.comment-main h5 {
+  font-size: 1.4rem;
+}
+
+.comment-main p {
+  font-size: 1.2rem;
 }

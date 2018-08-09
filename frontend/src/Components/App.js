@@ -7,6 +7,7 @@ import Categories from './Categories'
 import Posts from './Posts'
 import AddPost from './AddPost'
 import Post from './Post'
+import Page404 from './Page404'
 import { Route, withRouter } from 'react-router-dom'
 
 class App extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
           <Route exact path="/:category/:id" render={(props) => (
             <Post {...props.match.params} />
           )} />
+          <Route path="/page-404" component={Page404} />
           
         </div>
 

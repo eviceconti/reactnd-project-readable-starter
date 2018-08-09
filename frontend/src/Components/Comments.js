@@ -11,9 +11,11 @@ class Comments extends Component {
 
   render() {
     return (
-      <div className="comments">
+      <div>
         <h4 className="comments-title">Comments</h4>
-        <AddComment action="add" postId={this.props.postId}></AddComment>
+        <div className="add-comment">
+          <AddComment action="add" postId={this.props.postId}></AddComment>
+        </div>
         <ul className="comments-list">
           {this.props.comments.map(comment => (
             <li 
@@ -26,12 +28,14 @@ class Comments extends Component {
                 id={comment.id}
               >
               </Votes>
-              <div className="add-edit">
+              <div className="add-edit-comment">
                 <AddComment action="edit" comment={comment}></AddComment>
                 <AddComment action="delete" comment={comment}></AddComment>
               </div>
-              {comment.body}
-              {comment.author}
+              <div className="comment-main">
+                <h5>{comment.body}</h5>
+                <p>Author: {comment.author}</p>
+              </div>
             </li>
           ))}
         </ul>
