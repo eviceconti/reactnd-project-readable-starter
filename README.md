@@ -15,3 +15,4 @@ To get started you need to:
 * In another terminal window, install and start the frontend
     - `cd frontend`
     - `npm install`
+    - `npm start`
