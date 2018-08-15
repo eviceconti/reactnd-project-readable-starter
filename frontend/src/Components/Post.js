@@ -8,27 +8,32 @@ import AddPost from './AddPost'
 import Comments from './Comments'
 
 class Post extends Component {
-  state = {}
-  post = {}
+  post = []
   canRender = false
   postDeleted = true
+  page404 = false
   date
 
   setPost() {
     console.log()
     this.post = this.props.posts.filter(p => p.id === this.props.id)[0]
+    console.log('this.post',this.post)
     if (this.post) {
-      this.postDeleted = false
-      this.canRender = true
       this.date = new Date(this.post.timestamp)
       //console.log(this.date.toJSON())
       console.log(this.date.toDateString())
+      if (this.postDeleted) {
+        this.page404 = true
+      } else {
+        this.canRender = true
+      }
     }
   }
 
 
   render() {
     //this.post = this.props.posts
+    console.log('render', this.props.posts, this.post, this.canRender)
     if (this.props.posts.length !== 0) {
       this.postDeleted = true
       this.setPost()
@@ -38,7 +43,7 @@ class Post extends Component {
       console.log('render post',this.post)
     }
 
-    if (this.postDeleted) {
+    if (this.page404 && this.canRender) {
       return (
         <Redirect to="/page-404" />
       )
