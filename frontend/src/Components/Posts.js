@@ -1,18 +1,12 @@
 import React, {Component} from 'react'
 import '../App.css'
-//import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-//import { sortPosts } from '../Actions'
+import { sortPosts } from '../Actions'
 import Votes from './Votes'
 import { Link } from 'react-router-dom';
 import AddPost from './AddPost';
 
 class Posts extends Component {
-  state = {
-    update: 0
-  }
-  sortBy = require('sort-by')
-  posts = []
   filteredPosts = []
   canRender = false
   
@@ -22,13 +16,10 @@ class Posts extends Component {
     } else {
       this.filteredPosts = this.props.posts
     }
-    //console.log('filtered', this.filteredPosts)
   }
 
   sortPosts(query) {
-    this.filteredPosts.sort(this.sortBy(query))
-    this.setState({update: 1})
-    //sort action-reducer deleted. The sort is not changing the store, only props
+    this.props.sortPosts(this.props.posts, query)
   }
   
   render() {
@@ -107,13 +98,10 @@ function mapStateToProps(state) {
   }
 }
 
-/*
 function mapDispatchToProps(dispatch) {
   return {
-    getPosts: (posts) => dispatch(getPosts(posts)),
-    /*sortPosts: (posts) => dispatch(sortPosts(posts))
+    sortPosts: (posts, query) => dispatch(sortPosts(posts, query))
   }
 }
-*/
 
-export default connect(mapStateToProps)(Posts)
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)

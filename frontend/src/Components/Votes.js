@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { MdArrowUpward, MdArrowDownward } from 'react-icons/lib/md'
-import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { votePost, voteComment } from '../Actions'
+import { sendVote, sendComment } from '../Actions'
 
 class Votes extends Component {
   state = {}
@@ -15,22 +14,11 @@ class Votes extends Component {
   params: object { option: 'str' } - str: 'upVote' or 'downVote'
   */
   handleClick(type, id, params) {
-    console.log(this.props)
-    console.log(id, params)
-
     if (type === 'post') {
-      ReadableAPI.votePost(id, params)
-        .then(response => {
-          console.log(response)
-          this.props.votePost(response)
-        })
+      this.props.votePost([id, params])
     }
     if (type === 'comment') {
-      ReadableAPI.voteComment(id, params)
-        .then(response => {
-          console.log(response)
-          this.props.voteComment(response)
-        })
+      this.props.voteComment([id, params])
     }
   }
 
@@ -70,8 +58,8 @@ class Votes extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    votePost: (post) => dispatch(votePost(post)),
-    voteComment: (comment) => dispatch(voteComment(comment))
+    votePost: (post) => dispatch(sendVote(post)),
+    voteComment: (comment) => dispatch(sendComment(comment))
   }
 }
 

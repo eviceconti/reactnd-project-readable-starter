@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getPosts, getCategories } from '../Actions'
+import { fetchPosts, fetchCategories } from '../Actions'
 import '../App.css'
 import Categories from './Categories'
 import Posts from './Posts'
@@ -11,27 +10,8 @@ import Page404 from './Page404'
 import { Route, withRouter } from 'react-router-dom'
 
 class App extends Component {
-  state = {}
-
-  // all posts and categories are comming from API-Server via the App component then they are updated in the redux store
-  
-  getPosts() {
-    ReadableAPI.getPosts()
-      .then(response => {
-        this.props.getPosts(response)
-      })
-  }
-  
-  getCategories() {
-    ReadableAPI.getCategories().then(response => {
-      this.props.getCategories(response)
-    })
-  }
-
   render() {
-    
     // the App component renders only the routes and the Categories Component, so in all pages is possible to see them and navigate through all the pages
-
     return (
       <div className="app">
         <div className="main">
@@ -45,7 +25,6 @@ class App extends Component {
             <Post {...props.match.params} />
           )} />
           <Route path="/page-404" component={Page404} />
-          
         </div>
 
         {//SideBar is always active
@@ -59,8 +38,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getPosts()
-    this.getCategories()
+    this.props.getCategories()
+    this.props.getPosts()
   }
 
 }
@@ -74,9 +53,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPosts: posts => dispatch(getPosts(posts)),
-    getCategories: categories => dispatch(getCategories(categories)),
-    //sortPosts: (posts) => dispatch(sortPosts(posts))
+    getCategories: categories => dispatch(fetchCategories(categories)),
+    getPosts: posts => dispatch(fetchPosts(posts))
   }
 }
 

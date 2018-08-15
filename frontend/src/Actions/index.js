@@ -1,5 +1,5 @@
 //Action
-//import * as ReadableAPI from '../ReadableAPI'
+import * as ReadableAPI from '../ReadableAPI'
 
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POST = 'GET_POST'
@@ -8,25 +8,39 @@ export const VOTE_POST = 'VOTE_POST'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
-//export const SORT_POSTS = 'SORT_POSTS'
+export const SORT_POSTS = 'SORT_POSTS'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
-export function getPosts(state) {
+export const getPosts = (posts) => {
   return {
     type: GET_POSTS,
-    state
+    posts
   }
 }
 
-export function getCategories(state) {
+export const fetchPosts = () => dispatch => {
+  ReadableAPI.getPosts()
+    .then(posts => {
+      dispatch(getPosts(posts))
+    })
+}
+
+export function getCategories(categories) {
   return {
     type: GET_CATEGORIES,
-    state
+    categories
   }
+}
+
+export const fetchCategories = () => dispatch => {
+  ReadableAPI.getCategories()
+    .then(categories => {
+      dispatch(getCategories(categories))
+    })
 }
 
 export function votePost(post) {
@@ -36,11 +50,26 @@ export function votePost(post) {
   }
 }
 
+export const sendVote = ([id, params]) => dispatch => {
+  console.log('action', id, params)
+  ReadableAPI.votePost(id, params)
+    .then(post => {
+      dispatch(votePost(post))
+  })
+}
+
 export function addPost(post) {
   return {
     type: ADD_POST,
     post
   }
+}
+
+export const addPostAPI = (post) => dispatch => {
+  ReadableAPI.createPost(post)
+    .then((post) => {
+      dispatch(addPost(post))
+    })
 }
 
 export function editPost(post) {
@@ -50,6 +79,13 @@ export function editPost(post) {
   }
 }
 
+export const editPostAPI = ([id, params]) => dispatch => {
+  ReadableAPI.editPost(id, params)
+    .then(post => {
+      dispatch(editPost(post))
+    })
+}
+
 export function deletePost(post) {
   return {
     type: DELETE_POST,
@@ -57,14 +93,21 @@ export function deletePost(post) {
   }
 }
 
-/*
-export function sortPosts(posts) {
+export const deletePostAPI = (postId) => dispatch => {
+  ReadableAPI.deletePost(postId)
+    .then(post => {
+      dispatch(deletePost(post))
+    })
+}
+
+
+export function sortPosts(posts, query) {
   return {
     type: SORT_POSTS,
-    posts
+    posts,
+    query
   }
 }
-*/
 
 export function getComments(comments) {
   return {
@@ -78,6 +121,14 @@ export function voteComment(comment) {
     type: VOTE_COMMENT,
     comment
   }
+}
+
+export const sendComment = ([id, params]) => dispatch => {
+  console.log('action comment', id, params)
+  ReadableAPI.voteComment(id, params)
+    .then(comment => {
+      dispatch(voteComment(comment))
+  })
 }
 
 export function addComment(comment) {

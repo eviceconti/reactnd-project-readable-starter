@@ -1,21 +1,9 @@
 import React, { Component } from "react"
 import "../App.css"
-//import * as ReadableAPI from "../ReadableAPI"
 import { connect } from "react-redux"
-//import { getCategories } from "../Actions"
 import { Link } from "react-router-dom"
 
 class Categories extends Component {
-  state = {}
-
-  /*
-  getCategories() {
-    ReadableAPI.getCategories().then(response => {
-      this.props.getCategories(response)
-    })
-  }
-  */
-
   render() {
     let render = false
     if (this.props.categories.length !== 0) {
@@ -57,13 +45,5 @@ function mapStateToProps(state) {
     categories: state.categories
   }
 }
-
-/*
-function mapDispatchToProps(dispatch) {
-  return {
-    getCategories: categories => dispatch(getCategories(categories))
-  }
-}
-*/
 
 export default connect(mapStateToProps)(Categories)

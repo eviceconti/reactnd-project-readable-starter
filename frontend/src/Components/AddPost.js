@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import '../App.css'
 import Modal from 'react-modal'
-import * as ReadableAPI from "../ReadableAPI"
 import { MdEdit, MdAdd, MdDelete } from 'react-icons/lib/md'
 import { connect } from 'react-redux'
-import { addPost, deletePost, editPost } from '../Actions'
+import { addPostAPI, deletePostAPI, editPostAPI } from '../Actions'
 
 class AddPost extends Component {
   state = {
@@ -55,20 +54,14 @@ class AddPost extends Component {
 
   handlePost(post) {
     if (this.state.action === 'add') {
-      ReadableAPI.createPost(post)
-        .then((response) => {
-          this.closeModal()
-          this.props.addPost(response)
-        })
+      this.props.addPost(post)
+      this.closeModal()
     } else {
-      //edit post. title and body = strings
-    let params = {title: post.title, body: post.body}
-    ReadableAPI.editPost(this.state.id, params)
-      .then(response => {
-        console.log(response)
-        this.props.editPost(response)
-        this.closeModal()
-      })
+      // edit post. title and body = strings
+      let params = {title: post.title, body: post.body}
+      this.props.editPost([this.state.id, params])
+      this.closeModal()
+
       //set state.action to default = add
       this.setState({action: 'add'})
     } 
@@ -76,10 +69,7 @@ class AddPost extends Component {
 
   deletePost(postId) {
     console.log(postId)
-    ReadableAPI.deletePost(postId)
-      .then(response => {
-        this.props.deletePost(response)
-      })
+    this.props.deletePost(postId)
   }
 
   editPost(post) {
@@ -186,13 +176,17 @@ class AddPost extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    Modal.setAppElement('body')
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addPost: (post) => dispatch(addPost(post)),
-    deletePost: (post) => dispatch(deletePost(post)),
-    editPost: (post) => dispatch(editPost(post))
+    addPost: (post) => dispatch(addPostAPI(post)),
+    deletePost: (post) => dispatch(deletePostAPI(post)),
+    editPost: (post) => dispatch(editPostAPI(post))
   }
 }
 
