@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import '../App.css'
-//import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
 //import { getPost } from '../Actions'
 import Votes from './Votes'

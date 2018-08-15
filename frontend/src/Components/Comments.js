@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import '../App.css'
-import * as ReadableAPI from '../ReadableAPI'
 import { connect } from 'react-redux'
-import { getComments } from '../Actions'
+import { fetchComments } from '../Actions'
 import Votes from './Votes';
 import AddComment from './AddComment';
 
@@ -45,11 +44,7 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    ReadableAPI.getPostComments(this.props.postId)
-      .then(response => {
-        this.props.getComments(response)
-        console.log('comments props: ', this.props)
-      })
+    this.props.getComments(this.props.postId)
   }
 }
 
@@ -61,7 +56,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getComments: (comments) => dispatch(getComments(comments))
+    getComments: (comments) => dispatch(fetchComments(comments))
   }
 }
 

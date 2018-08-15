@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import '../App.css'
 import Modal from 'react-modal'
-import * as ReadableAPI from "../ReadableAPI"
 import { MdEdit, MdAdd, MdDelete } from 'react-icons/lib/md'
 import { connect } from 'react-redux'
-import { addComment, deleteComment, editComment } from '../Actions'
+import { addCommentAPI, deleteCommentAPI, editCommentAPI } from '../Actions'
 
 class AddComment extends Component {
   state = {
@@ -55,19 +54,14 @@ class AddComment extends Component {
 
   handleComment(comment) {
     if (this.state.action === 'add') {
-      ReadableAPI.createComment(comment)
-        .then((response) => {
-          this.closeModal()
-          this.props.addComment(response)
-        })
+      this.props.addComment(comment)
+      this.closeModal()
     } else {
       //edit post. body = string
-    let params = { body: comment.body }
-    ReadableAPI.editComment(this.state.id, params)
-      .then(response => {
-        this.props.editComment(response)
-        this.closeModal()
-      })
+      let params = { body: comment.body }
+      this.props.editComment([this.state.id, params])
+      this.closeModal()
+
       //set state.action to default = add
       this.setState({action: 'add'})
     } 
@@ -75,11 +69,7 @@ class AddComment extends Component {
 
   deleteComment(commentId) {
     console.log(commentId)
-    ReadableAPI.deleteComment(commentId)
-      .then(response => {
-        console.log(response)
-        this.props.deleteComment(response)
-      })
+    this.props.deleteComment(commentId)
   }
 
   editComment(comment) {
@@ -169,9 +159,9 @@ class AddComment extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addComment: (comment) => dispatch(addComment(comment)),
-    deleteComment: (comment) => dispatch(deleteComment(comment)),
-    editComment: (comment) => dispatch(editComment(comment))
+    addComment: (comment) => dispatch(addCommentAPI(comment)),
+    deleteComment: (comment) => dispatch(deleteCommentAPI(comment)),
+    editComment: (comment) => dispatch(editCommentAPI(comment))
   }
 }
 

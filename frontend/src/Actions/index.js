@@ -116,6 +116,13 @@ export function getComments(comments) {
   }
 }
 
+export const fetchComments = (postId) => dispatch => {
+  ReadableAPI.getPostComments(postId)
+    .then(comments => {
+      dispatch(getComments(comments))
+    })
+}
+
 export function voteComment(comment) {
   return {
     type: VOTE_COMMENT,
@@ -138,6 +145,13 @@ export function addComment(comment) {
   }
 }
 
+export const addCommentAPI = (comment) => dispatch => {
+  ReadableAPI.createComment(comment)
+    .then((comment) => {
+      dispatch(addComment(comment))
+    })
+}
+
 export function editComment(comment) {
   return {
     type: EDIT_COMMENT,
@@ -145,9 +159,23 @@ export function editComment(comment) {
   }
 }
 
+export const editCommentAPI = ([id, params]) => dispatch => {
+  ReadableAPI.editComment(id, params)
+    .then(comment => {
+      dispatch(editComment(comment))
+    })
+}
+
 export function deleteComment(comment) {
   return {
     type: DELETE_COMMENT,
     comment
   }
+}
+
+export const deleteCommentAPI = (commentId) => dispatch => {
+  ReadableAPI.deleteComment(commentId)
+    .then(comment => {
+      dispatch(deleteComment(comment))
+    })
 }
