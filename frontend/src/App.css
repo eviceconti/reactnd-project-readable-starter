@@ -197,8 +197,18 @@ Posts Component
   position: relative;
 }
 
-.post-title {
+.post-title,
+.post-title:link,
+.post-titl:visited {
   font-size: 1.6rem;
+  text-decoration: none;
+  color: var(--color-grey-dark-1);
+  animation: all .3s;
+}
+
+.post-title:active,
+.post-title:hover {
+  color: var(--color-primary);
 }
 
 .post-category {

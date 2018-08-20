@@ -57,7 +57,14 @@ class Posts extends Component {
                   id={post.id}
                 ></Votes>
                 <div className="post-main">
-                  <h3 className="post-title mb-small">{post.title}</h3> 
+                  <Link 
+                    to={`/${post.category}/${post.id}`}
+                    className="post-title "
+                  >
+                    <h3 className="mb-small">
+                      {post.title}
+                    </h3>
+                  </Link>
                   <div className="post-category" key={post.category}>
                     <Link
                       to={`/${post.category}`}
@@ -71,9 +78,7 @@ class Posts extends Component {
                     <AddPost action='delete' post={post} />
                   </div>
                   <p className="post-body">
-                    <Link to={`/${post.category}/${post.id}`}>
-                      {post.body}
-                    </Link>
+                    {post.body}
                   </p>
                   <p className="post-author">
                     posted by: {post.author}
