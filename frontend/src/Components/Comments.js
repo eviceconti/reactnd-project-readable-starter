@@ -6,8 +6,6 @@ import Votes from './Votes';
 import AddComment from './AddComment';
 
 class Comments extends Component {
-  state = {}
-
   render() {
     return (
       <div>

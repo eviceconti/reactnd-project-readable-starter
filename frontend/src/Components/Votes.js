@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { sendVote, sendComment } from '../Actions'
 
 class Votes extends Component {
-  state = {}
-
   /*
   Votes works for both posts and comments
   Props received should be 
