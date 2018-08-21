@@ -1,8 +1,7 @@
 //Reducer
 import { GET_POSTS, GET_CATEGORIES, VOTE_POST, ADD_POST, EDIT_POST, DELETE_POST, SORT_POSTS, GET_COMMENTS, VOTE_COMMENT, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../Actions'
 import { combineReducers } from 'redux'
-
-let sortBy = require('sort-by')
+import * as sortBy from 'sort-by'
 
 function posts(state = [], action) {
   switch (action.type) {
@@ -35,7 +34,7 @@ function posts(state = [], action) {
       const deletedState = state.filter((p) => p.id !== action.post.id)
       return deletedState
     case SORT_POSTS:
-      let sortedPosts = [...state].sort(sortBy(action.query))
+      const sortedPosts = [...state].sort(sortBy(action.query))
       return sortedPosts
     case ADD_COMMENT:
       const addCommentToPost = state.map( post => {
@@ -78,7 +77,7 @@ function comments(state = [], action) {
     case GET_COMMENTS:
       return action.comments
     case VOTE_COMMENT:
-      let newVote = state.map( (c) => {
+      const newVote = state.map( (c) => {
         if (action.comment.id === c.id) {
           return {
             ...c,
