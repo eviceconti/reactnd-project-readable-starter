@@ -27,7 +27,6 @@ function posts(state = [], action) {
     case EDIT_POST:
       //remove the edited post (using the .filter) from editedPosts and after that return this array with the new data in the end
       const editedPosts = state.filter(p => p.id !== action.post.id)
-      console.log('editedPosts')
       return [
         ...editedPosts,
         action.post
@@ -97,7 +96,6 @@ function comments(state = [], action) {
     case EDIT_COMMENT:
       //similar than edit post
       const editedComments = state.filter(c => c.id !== action.comment.id)
-      console.log('editedComments')
       return [
         ...editedComments,
         action.comment

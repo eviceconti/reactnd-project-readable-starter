@@ -50,7 +50,6 @@ export function votePost(post) {
 }
 
 export const sendVote = ([id, params]) => dispatch => {
-  console.log('action', id, params)
   ReadableAPI.votePost(id, params)
     .then(post => {
       dispatch(votePost(post))
@@ -130,7 +129,6 @@ export function voteComment(comment) {
 }
 
 export const sendComment = ([id, params]) => dispatch => {
-  console.log('action comment', id, params)
   ReadableAPI.voteComment(id, params)
     .then(comment => {
       dispatch(voteComment(comment))

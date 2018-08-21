@@ -30,7 +30,6 @@ class AddComment extends Component {
 
   handleForm = (e) => {
     e.preventDefault()
-    console.log(this.state)
     let id = require('uuid/v4')
 
     let comment = {
@@ -58,7 +57,7 @@ class AddComment extends Component {
       this.closeModal()
     } else {
       //edit post. body = string
-      let params = { body: comment.body }
+      let params = { body: comment.body, author: comment.author }
       this.props.editComment([this.state.id, params])
       this.closeModal()
 
@@ -68,12 +67,10 @@ class AddComment extends Component {
   }
 
   deleteComment(commentId) {
-    console.log(commentId)
     this.props.deleteComment(commentId)
   }
 
   editComment(comment) {
-    console.log(comment)
     this.setState({
       action: 'edit',
       id: comment.id,
@@ -82,7 +79,6 @@ class AddComment extends Component {
       parentId: comment.parentId
     })
     this.openModal()
-    console.log(this.state)
   }
 
   render() {

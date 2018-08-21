@@ -42,7 +42,6 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    console.log('coments postId:',this.props.postId)
     this.props.getComments(this.props.postId)
   }
 }

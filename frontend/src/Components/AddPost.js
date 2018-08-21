@@ -30,7 +30,6 @@ class AddPost extends Component {
 
   handleForm = (e) => {
     e.preventDefault()
-    console.log(this.state)
     let id = require('uuid/v4')
 
     let post = {
@@ -58,7 +57,7 @@ class AddPost extends Component {
       this.closeModal()
     } else {
       // edit post. title and body = strings
-      let params = {title: post.title, body: post.body}
+      let params = {title: post.title, body: post.body, category: post.category, author: post.author}
       this.props.editPost([this.state.id, params])
       this.closeModal()
 
@@ -68,12 +67,10 @@ class AddPost extends Component {
   }
 
   deletePost(postId) {
-    console.log(postId)
     this.props.deletePost(postId)
   }
 
   editPost(post) {
-    console.log(post)
     this.setState({
       action: 'edit',
       id: post.id,
@@ -83,7 +80,6 @@ class AddPost extends Component {
       category: post.category
     })
     this.openModal()
-    console.log(this.state)
   }
 
   render() {
